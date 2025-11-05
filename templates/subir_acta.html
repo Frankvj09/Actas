@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+{% block title %}Subir Acta{% endblock %}
+{% block main_class %}main-center{% endblock %}
+{% block content %}
+
+<h3 class="crear-usuario">Subir nueva acta</h3>
+<div class="login-box">
+<form method="post" enctype="multipart/form-data">
+  <label>Título</label><br>
+  <input name="title" required><br>
+  <label>Archivo (PDF)</label><br>
+  <input type="file" name="archivo" accept="application/pdf"><br><br>
+  <button type="submit">Subir acta</button>
+</form>
+</div>
+{% endblock %}

@@ -1,0 +1,121 @@
+{% extends 'base.html' %}
+{% block title %}Leer Acta{% endblock %}
+{% block content %}
+
+<h2 class="leer_acta">Acta de: {{ acta.nombre }}</h2>
+
+<div class="layout-acta">
+  <!-- IZQUIERDA: PDF -->
+  <div class="panel-izquierdo">
+    {% if acta.archivo %}
+      <iframe 
+        src="{{ url_for('actas.uploaded_file', filename=acta.archivo) }}"
+        class="visor-pdf">
+      </iframe>
+    {% else %}
+      <p>Acta sin archivo adjunto.</p>
+    {% endif %}
+  </div>
+
+  <!-- DERECHA: VERIFICACIÓN + SUGERENCIAS -->
+  <div class="panel-derecho">
+
+    <!-- Verificación -->
+    <div class="verificacion-box">
+      <h3>Verificación</h3>
+
+      {% set usuarios_verificados = acta.verificaciones_recibidas | map(attribute='usuario_id') | list %}
+      <form id="verificar-form" action="{{ url_for('actas.toggle_verificada', acta_id=acta.id) }}" method="post">
+        {% if current_user.id in usuarios_verificados %}
+          <button id="verificar-btn" type="submit" class="btn-warning">Quitar verificación</button>
+        {% else %}
+          <button id="verificar-btn" type="submit" class="btn-success">Marcar como verificada</button>
+        {% endif %}
+      </form>
+
+      <p><strong>Estado:</strong> 
+        <span id="estado-verificacion">
+          {% if acta.verificada %}Verificada{% else %}No{% endif %}
+        </span>
+      </p>
+
+      {% if acta.verificaciones_recibidas %}
+        <hr>
+        <h4>Usuarios que verificaron:</h4>
+        <ul>
+          {% for v in acta.verificaciones_recibidas %}
+            <li>{{ v.usuario.username }} 
+              <br><small>{{ v.fecha_verificacion.strftime('%d/%m/%Y %H:%M') }}</small>
+            </li>
+          {% endfor %}
+        </ul>
+      {% else %}
+        {% if current_user.role == 'admin' %}
+          <p><em>Nadie ha verificado aún.</em></p>
+        {% endif %}
+      {% endif %}
+    </div>
+
+    <!-- Sugerencias -->
+    <div class="sugerencias-box">
+      <h3>Sugerencias</h3>
+      <form method="post" action="{{ url_for('actas.sugerir_acta', acta_id=acta.id) }}">
+        <textarea name="sugerencia" rows="4" required></textarea>
+        <button type="submit" class="btn-primary">Enviar sugerencia</button>
+      </form>
+
+      <h4>Historial de sugerencias</h4>
+      {% for s in sugerencias %}
+        <div class="sugerencia-item">
+          <div class="meta">
+            {{ s.usuario.username if s.usuario else 'Anon' }} · {{ s.fecha.strftime('%Y-%m-%d %H:%M') }}
+          </div>
+          <div class="comentario">{{ s.comentario }}</div>
+          {% if s.respuesta_admin %}
+            <div class="respuesta"><strong>Respuesta admin:</strong> {{ s.respuesta_admin }}</div>
+          {% elif current_user.role == 'admin' %}
+            <form method="post" action="{{ url_for('actas.responder_sugerencia', sug_id=s.id) }}">
+              <textarea name="respuesta" rows="2"></textarea>
+              <button type="submit" class="btn-secondary">Responder</button>
+            </form>
+          {% endif %}
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+</div>
+
+<!-- Script verificación AJAX -->
+<script>
+document.getElementById("verificar-form").addEventListener("submit", async function(e) {
+  e.preventDefault();
+
+  const form = e.target;
+  const btn = document.getElementById("verificar-btn");
+  const estadoSpan = document.getElementById("estado-verificacion");
+
+  try {
+    const response = await fetch(form.action, {
+      method: "POST",
+      headers: { "X-Requested-With": "XMLHttpRequest" }
+    });
+    const data = await response.json();
+
+    if (data.success) {
+      if (data.estado) {
+        btn.textContent = "Quitar verificación";
+        btn.className = "btn-warning";
+        estadoSpan.textContent = "Verificada";
+      } else {
+        btn.textContent = "Marcar como verificada";
+        btn.className = "btn-success";
+        estadoSpan.textContent = "No";
+      }
+    }
+  } catch (error) {
+    console.error("Error:", error);
+  }
+});
+</script>
+
+{% endblock %}

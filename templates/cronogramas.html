@@ -1,0 +1,49 @@
+{% extends 'base.html' %}
+{% block title %}Cronogramas{% endblock %}
+
+
+{% block content %}
+<div class="tabla-container">
+  <h2>Cronogramas</h2>
+
+  <table class="tabla-listado" border="1" cellpadding="6">
+    <tr>
+      <th>Nombre</th>
+      <th>Fecha</th>
+      <th>Archivo</th>
+      <th>Subido por</th>
+      <th>Acciones</th>
+    </tr>
+
+    {% for c in cronogramas %}
+    <tr>
+      <td>{{ c.nombre }}</td>
+      <td>{{ c.fecha.strftime('%Y-%m-%d') if c.fecha else '—' }}</td>
+
+      <td>
+        {% if c.archivo %}
+          <a href="{{ url_for('cronogramas.descargar_cronograma', cronograma_id=c.id) }}">Descargar</a>
+          &nbsp;|&nbsp;
+          <a href="{{ url_for('cronogramas.ver_cronograma', cronograma_id=c.id) }}" target="_blank">Leer cronograma</a>
+        {% else %}
+          —
+        {% endif %}
+      </td>
+
+      <td>{{ c.uploader.username if c.uploader else '—' }}</td>
+
+      <td>
+        {% if current_user.role == 'admin' or current_user.id == c.subido_por %}
+          <a href="{{ url_for('cronogramas.editar', id=c.id) }}">Editar</a>
+        {% endif %}
+        {% if current_user.role == 'admin' %}
+          <form method="post" action="{{ url_for('cronogramas.eliminar', id=c.id) }}" style="display:inline">
+            <button type="submit">Eliminar</button>
+          </form>
+        {% endif %}
+      </td>
+    </tr>
+    {% endfor %}
+  </table>
+</div>
+{% endblock %}

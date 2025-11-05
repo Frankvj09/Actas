@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{% block title %}Actas y Cronogramas{% endblock %}</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+  <header>
+    <nav>
+    {% if current_user.is_authenticated %}
+        <a href="{{ url_for('actas.dashboard') }}"> 📄Actas</a> |
+        <a href="{{ url_for('actas.subir_acta') }}"> ⬆️ Subir acta</a> |
+        <a href="{{ url_for('cronogramas.index') }}"> 📅Cronogramas</a> |
+        <a href="{{ url_for('cronogramas.subir_cronograma') }}"> ⬆️ Subir cronograma</a> |
+        {% if current_user.role == 'admin' %}
+            <a href="{{ url_for('auth.register') }}"> 👤Crear Usuario</a> |
+        {% endif %}
+
+        <a href="{{ url_for('auth.logout') }}">🚪Cerrar sesión</a>
+    {% else %}
+        <a href="{{ url_for('auth.login') }}">Iniciar sesión</a>
+    {% endif %}
+  </nav>
+  </header>
+
+  <!-- añadido boton regresar -->
+{% if current_user.is_authenticated %}
+  <div class="user-left">
+    <div class="username">
+      👤 {{ current_user.username }} {% if current_user.role %}({{ current_user.role }}){% endif %}
+    </div>
+    <button class="btn-back" onclick="goBack()">← Regresar</button>
+  </div>
+{% endif %}
+
+<script>
+  function goBack() {
+    const prev = "{{ request.referrer or url_for('home') }}"; // usa 'home' como respaldo
+    window.location.href = prev;
+  }
+</script>
+
+<!-- modificacon a clase main -->
+ 
+  <main class="{% block main_class %}{% endblock %}"> <!-- modificacon a clase main -->
+    <div class="container">
+  
+      {% block content %}{% endblock %}
+    </div>
+  </main>
+   <footer>
+    <p>© 2025 Plataforma Actas y Cronogramas</p>
+     </footer>
+</body>
+</html>

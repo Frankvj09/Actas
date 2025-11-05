@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+{% block title %}Subir Cronograma{% endblock %}
+{% block main_class %}main-center{% endblock %}
+{% block content %}
+<div>  
+  <img src="{{ url_for('static', filename='#') }}" alt="logo">
+</div>
+<h3 class="crear-usuario">Subir cronograma</h3>
+<div class="login-box">
+  <form method="post" enctype="multipart/form-data">
+    <label>Nombre</label><br>
+    <input name="nombre" required><br>
+
+    <label>Fecha evento</label><br>
+    <input type="date" name="fecha_evento"
+           value="{{ c.fecha.strftime('%Y-%m-%d') if c and c.fecha else '' }}"><br>
+
+    <label>Archivo (PDF)</label><br>
+    <input type="file" name="archivo" accept="application/pdf"><br><br>
+
+    <button type="submit">Subir</button>
+  </form>
+</div>
+{% endblock %}

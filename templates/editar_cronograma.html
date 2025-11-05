@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+{% block title %}Editar Cronograma{% endblock %}
+{% block main_class %}main-center{% endblock %}
+{% block content %}
+<div>
+  <h3 class="crear-usuario">Editar cronograma</h3>
+</div>
+<div class="login-box">
+<form method="post" enctype="multipart/form-data">
+  <label>Nombre</label><br>
+  <input name="nombre" value="{{ cronograma.nombre }}" required><br>
+  <label>Fecha evento (AAAA-MM-DD)</label><br>
+  <input name="fecha_evento" value="{{ cronograma.fecha.strftime('%Y-%m-%d') if cronograma.fecha else '' }}"><br>
+  <label>Archivo (opcional)</label><br>
+  <input type="file" name="archivo" accept="application/pdf"><br><br>
+  <button type="submit">Guardar</button>
+</form>
+</div>
+{% endblock %}
