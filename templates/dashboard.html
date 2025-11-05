@@ -29,17 +29,20 @@
 
       <td>{% if acta.verificada %}✅ Verificada{% else %}❌ No verificada{% endif %}</td>
 
-      <td>
-        <a href="{{ url_for('actas.ver_acta', acta_id=acta.id) }}">Abrir</a>
-        {% if current_user.role == 'admin' or current_user.id == acta.subido_por %}
-          <a href="{{ url_for('actas.editar_acta', acta_id=acta.id) }}">Editar</a>
-        {% endif %}
-        {% if current_user.role == 'admin' %}
-          <form method="post" action="{{ url_for('actas.eliminar_acta', acta_id=acta.id) }}" style="display:inline">
-            <button type="submit">Eliminar</button>
-          </form>
-        {% endif %}
-      </td>
+     <td class="acciones">
+  <a href="{{ url_for('actas.ver_acta', acta_id=acta.id) }}" class="btn-secondary">Abrir</a>
+
+  {% if current_user.role == 'admin' or current_user.id == acta.subido_por %}
+    <a href="{{ url_for('actas.editar_acta', acta_id=acta.id) }}" class="btn-primary">Editar</a>
+  {% endif %}
+
+  {% if current_user.role == 'admin' %}
+    <form method="post" action="{{ url_for('actas.eliminar_acta', acta_id=acta.id) }}" class="form-inline">
+      <button type="submit" class="btn-danger">🗑 Eliminar</button>
+    </form>
+  {% endif %}
+</td>
+
     </tr>
     {% endfor %}
   </table>
