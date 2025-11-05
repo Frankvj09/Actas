@@ -7,18 +7,23 @@
 
 <h3 class="crear-usuario">Crear usuario</h3>
 <div class="login-box"> 
+  <div  class="login-logo">  
+  <img src="{{ url_for('static', filename='agregar.gif') }}" alt="logo" class="nav2-icon">
+</div>
 <form method="post">
-  <label>Usuario</label><br>
+  <label >Usuario</label><br>
   <input name="username" required><br>
 
   <label>Contraseña</label><br>
   <input type="password" name="password" required><br>
 
-  <label>Roles</label><br>
-  <select name="role">
+ <div class="form-group">
+  <label for="role">Rol</label><br>
+  <select name="role" id="role" class="select-role">
     <option value="user">Usuario</option>
     <option value="admin">Admin</option>
-  </select><br><br>
+  </select>
+</div>
 
   <button type="submit">Crear</button>
 </form>

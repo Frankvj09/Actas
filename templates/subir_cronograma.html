@@ -2,11 +2,11 @@
 {% block title %}Subir Cronograma{% endblock %}
 {% block main_class %}main-center{% endblock %}
 {% block content %}
-<div>  
-  <img src="{{ url_for('static', filename='#') }}" alt="logo">
-</div>
 <h3 class="crear-usuario">Subir cronograma</h3>
 <div class="login-box">
+  <div  class="login-logo">  
+  <img src="{{ url_for('static', filename='calendario.gif') }}" alt="logo" class="nav2-icon">
+</div>
   <form method="post" enctype="multipart/form-data">
     <label>Nombre</label><br>
     <input name="nombre" required><br>

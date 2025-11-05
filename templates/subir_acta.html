@@ -2,9 +2,11 @@
 {% block title %}Subir Acta{% endblock %}
 {% block main_class %}main-center{% endblock %}
 {% block content %}
-
 <h3 class="crear-usuario">Subir nueva acta</h3>
 <div class="login-box">
+  <div  class="login-logo">  
+  <img src="{{ url_for('static', filename='documento.gif') }}" alt="logo" class="nav2-icon">
+</div>
 <form method="post" enctype="multipart/form-data">
   <label>Título</label><br>
   <input name="title" required><br>

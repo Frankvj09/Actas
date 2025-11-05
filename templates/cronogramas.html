@@ -22,9 +22,9 @@
 
       <td>
         {% if c.archivo %}
-          <a href="{{ url_for('cronogramas.descargar_cronograma', cronograma_id=c.id) }}">Descargar</a>
+          <a href="{{ url_for('cronogramas.descargar_cronograma', cronograma_id=c.id) }}" class="btn-secondary">Descargar</a>
           &nbsp;|&nbsp;
-          <a href="{{ url_for('cronogramas.ver_cronograma', cronograma_id=c.id) }}" target="_blank">Leer cronograma</a>
+          <a href="{{ url_for('cronogramas.ver_cronograma', cronograma_id=c.id) }}" target="_blank" class="btn-secondary">Leer cronograma</a>
         {% else %}
           —
         {% endif %}
@@ -34,11 +34,11 @@
 
       <td>
         {% if current_user.role == 'admin' or current_user.id == c.subido_por %}
-          <a href="{{ url_for('cronogramas.editar', id=c.id) }}">Editar</a>
+          <a href="{{ url_for('cronogramas.editar', id=c.id) }}" class="btn-secondary">Editar</a>
         {% endif %}
         {% if current_user.role == 'admin' %}
           <form method="post" action="{{ url_for('cronogramas.eliminar', id=c.id) }}" style="display:inline">
-            <button type="submit">Eliminar</button>
+            <button type="submit" class="btn-danger">Eliminar</button>
           </form>
         {% endif %}
       </td>
