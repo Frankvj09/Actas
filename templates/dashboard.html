@@ -17,9 +17,9 @@
     {% for acta in actas %}
     <tr>
       <td>{{ acta.nombre }}</td>
-      <td>
+      <td class="acciones">
         {% if acta.archivo %}
-          <a href="{{ url_for('actas.descargar_acta', acta_id=acta.id) }}">Descargar</a>
+          <a href="{{ url_for('actas.descargar_acta', acta_id=acta.id) }}" class="btn-secondary">Descargar</a>
         {% else %}
           —
         {% endif %}
