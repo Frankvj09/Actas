@@ -1,4 +1,4 @@
-from flask import Flask
+from flask import Flask, redirect, url_for
 from flask_login import LoginManager
 import os
 from extensions import db
@@ -37,5 +37,10 @@ app.register_blueprint(auth_bp, url_prefix='/auth')
 app.register_blueprint(actas_bp, url_prefix='')
 app.register_blueprint(cronogramas_bp, url_prefix='/cronogramas')
 
+@app.route('/')
+def home():
+    return redirect(url_for('auth.login'))
+
 if __name__ == '__main__':
-    app.run(debug=True, port=5500)
+    port = int(os.environ.get("PORT", 5000))
+    app.run(host="0.0.0.0", port=port)
