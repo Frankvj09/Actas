@@ -206,7 +206,22 @@ footer {
 
 /* ====== TABLAS ====== */
 
-/* ===== FIX DEFINITIVO PARA BOTONES EN TABLAS ===== */
+.tabla-scroll {
+    width: 100%;
+    overflow-x: auto;
+    overflow-y: hidden;
+}
+
+.tabla-scroll table {
+    width: max-content; /* Evita que se comprima */
+    min-width: 100%;    /* Pero ocupa como mínimo todo el ancho */
+}
+
+@media (max-width: 768px) {
+    .tabla-listado th, .tabla-listado td {
+        white-space: nowrap; /* Evita que se parta el texto */
+    }
+}
 
 /* Contenedor interno de acciones */
 .tabla-listado td .acciones {
@@ -225,11 +240,11 @@ footer {
   align-items: center;
 }
 
-/* Evita que el formulario crezca raro 
+/* Evita que el formulario crezca raro */
 .tabla-listado td form {
   margin: 0;
   padding: 0;
-}*/
+}
 
 .tabla-container {
   width: 95%;
@@ -238,7 +253,6 @@ footer {
   display: flex;
   flex-direction: column;
   align-items: center;
-  overflow-x: auto;
 }
 
 .tabla-listado {
