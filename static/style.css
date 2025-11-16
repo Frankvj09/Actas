@@ -400,3 +400,29 @@ nav a {
   height: 60px;
   vertical-align: middle;
 }
+
+/* ====== RESPONSIVO PARA EL BLOQUE DEL USUARIO ====== */
+@media (max-width: 900px) {
+  .responsive-user {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    text-align: center;
+  }
+
+  .responsive-user .username {
+    font-size: 14px;
+  }
+
+  .responsive-user .nav2-icon {
+    width: 28px;
+    height: 28px;
+  }
+
+  .responsive-user .btn-back {
+    width: 100%;
+    max-width: 180px;
+    font-size: 14px;
+  }
+}

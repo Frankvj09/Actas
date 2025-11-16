@@ -26,13 +26,16 @@
   </nav>
   </header>
 
-  <!-- añadido boton regresar -->
 {% if current_user.is_authenticated %}
-  <div class="user-left">
+  <div class="user-left responsive-user">
     <div class="username">
-      <img src="{{ url_for('static', filename='alumno.gif') }}" alt="Crear Usuario" class="nav2-icon"> {{ current_user.username }} {% if current_user.role %}({{ current_user.role }}){% endif %} 
+      <img src="{{ url_for('static', filename='alumno.gif') }}" 
+           alt="Crear Usuario" class="nav2-icon"> 
+      {{ current_user.username }} 
+      {% if current_user.role %} ({{ current_user.role }}) {% endif %}
     </div>
-    <button class="btn-back" onclick="goBack()">Atras</button>
+
+    <button class="btn-back" onclick="goBack()">Atrás</button>
   </div>
 {% endif %}
 
