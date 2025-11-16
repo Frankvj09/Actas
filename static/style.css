@@ -224,21 +224,36 @@ footer {
   overflow: hidden;
 }
 
+/* ENCABEZADOS */
 .tabla-listado th {
   background: #2B79C3;
   color: white;
   padding: 10px;
   text-align: left;
+  white-space: nowrap; /* evita saltos feos */
 }
 
+/* CELDAS */
 .tabla-listado td {
   padding: 8px;
   text-align: left;
   border-bottom: 1px solid #ddd;
+  vertical-align: middle; /* Alinea botones correctamente */
 }
 
-.tabla-listado tr:hover { background: #f2f8ff; }
+.tabla-listado tr:hover { 
+  background: #f2f8ff; 
+}
 
+/* PARA QUE LOS BOTONES NO SE SOBREPUSEAN */
+.tabla-listado td a,
+.tabla-listado td button {
+  display: inline-block;
+  margin: 2px 3px;   /* agrega espacio entre botones */
+  white-space: nowrap; /* evita que se partan */
+}
+
+/* Mantener el h2 como lo tenías */
 h2 {
   text-align: center;
   margin-bottom: 15px;

@@ -1,7 +1,6 @@
 {% extends 'base.html' %}
 {% block title %}Cronogramas{% endblock %}
 
-
 {% block content %}
 <div class="tabla-container">
   <h2>Cronogramas</h2>
@@ -20,28 +19,50 @@
       <td>{{ c.nombre }}</td>
       <td>{{ c.fecha.strftime('%Y-%m-%d') if c.fecha else '—' }}</td>
 
+      <!-- ARCHIVO -->
       <td>
         {% if c.archivo %}
-          <a href="{{ url_for('cronogramas.descargar_cronograma', cronograma_id=c.id) }}" class="btn-secondary">Descargar</a>
-          &nbsp;|&nbsp;
-          <a href="{{ url_for('cronogramas.ver_cronograma', cronograma_id=c.id) }}" target="_blank" class="btn-secondary">Leer cronograma</a>
+        <div class="archivo-botones">
+          <a href="{{ url_for('cronogramas.descargar_cronograma', cronograma_id=c.id) }}" class="btn-secondary">
+            Descargar
+          </a>
+
+          <a href="{{ url_for('cronogramas.ver_cronograma', cronograma_id=c.id) }}"
+             target="_blank" class="btn-secondary">
+            Leer cronograma
+          </a>
+        </div>
         {% else %}
           —
         {% endif %}
       </td>
 
+      <!-- SUBIDO POR -->
       <td>{{ c.uploader.username if c.uploader else '—' }}</td>
 
+      <!-- ACCIONES -->
       <td>
-        {% if current_user.role == 'admin' or current_user.id == c.subido_por %}
-          <a href="{{ url_for('cronogramas.editar', id=c.id) }}" class="btn-secondary">Editar</a>
-        {% endif %}
-        {% if current_user.role == 'admin' %}
-          <form method="post" action="{{ url_for('cronogramas.eliminar', id=c.id) }}" style="display:inline">
-            <button type="submit" class="btn-danger">Eliminar</button>
+        <div class="acciones">
+
+          {% if current_user.role == 'admin' or current_user.id == c.subido_por %}
+          <a href="{{ url_for('cronogramas.editar', id=c.id) }}" class="btn-secondary">
+            Editar
+          </a>
+          {% endif %}
+
+          {% if current_user.role == 'admin' %}
+          <form method="post"
+                action="{{ url_for('cronogramas.eliminar', id=c.id) }}"
+                style="width: 100%;">
+            <button type="submit" class="btn-danger" style="width: 100%;">
+              Eliminar
+            </button>
           </form>
-        {% endif %}
+          {% endif %}
+
+        </div>
       </td>
+
     </tr>
     {% endfor %}
   </table>
