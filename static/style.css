@@ -205,6 +205,32 @@ footer {
 }
 
 /* ====== TABLAS ====== */
+
+/* ===== FIX DEFINITIVO PARA BOTONES EN TABLAS ===== */
+
+/* Contenedor interno de acciones */
+.tabla-listado td .acciones {
+  display: flex;
+  flex-wrap: wrap; /* 🔹 evita sobreposición */
+  gap: 6px;        /* 🔹 separación entre botones */
+  align-items: center;
+}
+
+/* Evita que los botones salgan del td */
+.tabla-listado td a,
+.tabla-listado td button,
+.tabla-listado td form {
+  white-space: nowrap;  /* 🔹 no se parten */
+  display: inline-flex; /* 🔹 mantiene alineación estable */
+  align-items: center;
+}
+
+/* Evita que el formulario crezca raro 
+.tabla-listado td form {
+  margin: 0;
+  padding: 0;
+}*/
+
 .tabla-container {
   width: 95%;
   max-width: 1200px;

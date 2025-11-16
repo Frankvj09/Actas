@@ -23,7 +23,8 @@
       <td>
         {% if c.archivo %}
         <div class="archivo-botones">
-          <a href="{{ url_for('cronogramas.descargar_cronograma', cronograma_id=c.id) }}" class="btn-secondary">
+          <a href="{{ url_for('cronogramas.descargar_cronograma', cronograma_id=c.id) }}" 
+             class="btn-secondary">
             Descargar
           </a>
 
@@ -52,9 +53,8 @@
 
           {% if current_user.role == 'admin' %}
           <form method="post"
-                action="{{ url_for('cronogramas.eliminar', id=c.id) }}"
-                style="width: 100%;">
-            <button type="submit" class="btn-danger" style="width: 100%;">
+                action="{{ url_for('cronogramas.eliminar', id=c.id) }}">
+            <button type="submit" class="btn-danger">
               Eliminar
             </button>
           </form>
