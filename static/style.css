@@ -123,9 +123,9 @@ footer {
 }
 .btn-back:hover { background: #0088cc; }
 
-/* ====== USER BOX IZQUIERDO ====== */
+/* ====== USER BOX IZQUIERDO ====== 
 .user-left {
-  position: fixed;
+ position: sticky;
   left: 50px;
   top: 80px;
   background: white;
@@ -134,7 +134,7 @@ footer {
   box-shadow: 0 2px 6px rgba(0,0,0,0.08);
   z-index: 1000;
 }
-.user-left .username { font-weight: bold; margin-bottom: 8px; }
+.user-left .username { font-weight: bold; margin-bottom: 8px; }*/
 
 /* ====== BOTÓN CREAR USUARIO ====== */
 .crear-usuario {
@@ -402,27 +402,57 @@ nav a {
 }
 
 /* ====== RESPONSIVO PARA EL BLOQUE DEL USUARIO ====== */
+/* ===== USER BOX IZQUIERDO (ESCRITORIO) ===== */
+.user-left {
+  position: fixed;
+  left: 20px;
+  top: 80px;
+  background: white;
+  padding: 10px;
+  border-radius: 6px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+  z-index: 999;
+  width: 200px; /* evita que crezca y se vaya a otras partes */
+}
+
+.user-left .username {
+  font-weight: bold;
+  margin-bottom: 8px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+
+/* ===== RESPONSIVO MÓVIL ===== */
 @media (max-width: 900px) {
-  .responsive-user {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 8px;
+
+  /* user box fijo, pero REUBICADO para no tapar el menú */
+  .user-left {
+    position: fixed;
+    top: 10px;
+    left: 50%;
+    transform: translateX(-50%);  /* lo centra sin sobreponer */
+    width: 90%;
+    max-width: 260px;
+    padding: 12px;
     text-align: center;
+    z-index: 999;
   }
 
-  .responsive-user .username {
+  .user-left .username {
+    justify-content: center;
     font-size: 14px;
   }
 
-  .responsive-user .nav2-icon {
+  .user-left img {
     width: 28px;
     height: 28px;
   }
 
-  .responsive-user .btn-back {
-    width: 100%;
-    max-width: 180px;
-    font-size: 14px;
+  /* agregamos un espacio arriba al contenido
+     para que el cuadro no tape absolutamente nada */
+  body {
+    padding-top: 120px;
   }
 }
